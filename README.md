@@ -12,6 +12,9 @@ This paper presents a new multi-task neural network BsiNet to delineate agricult
   <img src="imgs/BsiNet.png" width="800"/>
 </p>
 
+<p align="center">
+  <img src="imgs/comparison.png" width="800"/>
+</p>
 
 
 
@@ -72,7 +75,7 @@ For test and validation datasets, the same structure as the above.
 
 1. Train the model.
 ```
-will coming soon
+Will coming soon
 ```
 2. Evaluate.
 ```
@@ -82,7 +85,7 @@ We will release  the complete code after receiving our paper
 
 ### Acknowledgements:
 
-This code-base uses certain code-blocks and helper functions from [Psi-Net](https://github.com/Bala93/Multi-task-deep-network)
+This code-base uses certain code-blocks and helper functions from Psi-Net
 
 
 ### Citation:
