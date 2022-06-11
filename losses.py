@@ -1,13 +1,11 @@
-import torch
-from torch import nn
-from torch.nn import functional as F
-import numpy as np
-from torch.autograd import Variable
+"""Calculating the loss
+You can build the loss function of BsiNet by combining multiple losses
+"""
 
+import torch
+import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
-from collections import OrderedDict
-
 
 
 def dice_loss(prediction, target):
@@ -36,9 +34,9 @@ def calc_loss(prediction, target, bce_weight=0.5):
         metrics = Metrics printed
         bce_weight = 0.5 (default)
     Output:
-        loss : dice loss of the epoch """         #原始是bce = F.binary_cross_entropy_with_logits(prediction, target)
-    bce = F.binary_cross_entropy_with_logits(prediction, target)           #输出之前加torch.sigmoid，这里可以改成torch.nn.BCELoss()
-    prediction = torch.sigmoid(prediction)                                 #这里可以注释掉
+        loss : dice loss of the epoch """
+    bce = F.binary_cross_entropy_with_logits(prediction, target)
+    prediction = torch.sigmoid(prediction)
     dice = dice_loss(prediction, target)
 
     loss = bce * bce_weight + dice * (1 - bce_weight)
@@ -125,7 +123,7 @@ class Loss:
 
 class LossMulti:
     def __init__(
-            self, jaccard_weight=0.0, class_weights=None, num_classes=1, device=None  # jaccard_weight=0.3看看,
+            self, jaccard_weight=0.0, class_weights=None, num_classes=1, device=None
     ):
         self.device = device
         if class_weights is not None:
@@ -160,11 +158,11 @@ class LossMulti:
         return loss
 
 
-class LossPsiNet:
+class LossBsiNet:
     def __init__(self, weights=[1, 1, 1]):
-        self.criterion1 = LossMulti(num_classes=2)
-        self.criterion2 = LossMulti(num_classes=2)
-        self.criterion3 = nn.MSELoss()
+        self.criterion1 = LossMulti(num_classes=2)   #mask_loss
+        self.criterion2 = LossMulti(num_classes=2)   #contour_loss
+        self.criterion3 = nn.MSELoss()               ##distance_loss
         self.weights = weights
 
     def __call__(self, outputs1, outputs2, outputs3, targets1, targets2, targets3):

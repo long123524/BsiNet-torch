@@ -1,8 +1,15 @@
+"""Model construction
+1. We offer two versions of BsiNet, one concise and the other clear
+2. The clear version is designed for user understanding and modification
+3. You can use these attention mechanism we provide to bulid a new multi-task model, and you can also
+4. You can also add your own module or change the location of the attention mechanism to build a better model
+"""
+
+
 from torch import nn
 import torch
 from torch.nn import functional as F
 from torch.nn.parameter import Parameter
-
 
 
 def conv3x3(in_, out):
@@ -24,10 +31,9 @@ class Conv3BN(nn.Module):
         return x
 
 
-class UNetModule(nn.Module):
+class NetModule(nn.Module):
     def __init__(self, in_: int, out: int):
         super().__init__()
-       # self.encoder = torchvision.models.vgg19_bn(pretrained=pretrained).features
         self.l1 = Conv3BN(in_, out)
         self.l2 = Conv3BN(out, out)
 
@@ -81,6 +87,43 @@ class SpatialGroupEnhance(nn.Module):
         x = x * self.sig(t)
         x = x.view(b, c, h, w)
         return x
+
+######CBAM注意力
+class ChannelAttention(nn.Module):
+    def __init__(self, in_planes, ratio=16):
+        super(ChannelAttention, self).__init__()
+        self.avg_pool = nn.AdaptiveAvgPool2d(1)
+        self.max_pool = nn.AdaptiveMaxPool2d(1)
+
+        self.fc1   = nn.Conv2d(in_planes, in_planes // ratio, 1, bias=False)
+        self.relu1 = nn.ReLU()
+        self.fc2   = nn.Conv2d(in_planes // ratio, in_planes, 1, bias=False)
+
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        avg_out = self.fc2(self.relu1(self.fc1(self.avg_pool(x))))
+        max_out = self.fc2(self.relu1(self.fc1(self.max_pool(x))))
+        out = avg_out + max_out
+        return self.sigmoid(out)
+
+class SpatialAttention(nn.Module):
+    def __init__(self, kernel_size=7):
+        super(SpatialAttention, self).__init__()
+
+        assert kernel_size in (3, 7), 'kernel size must be 3 or 7'
+        padding = 3 if kernel_size == 7 else 1
+
+        self.conv1 = nn.Conv2d(2, 1, kernel_size, padding=padding, bias=False)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        avg_out = torch.mean(x, dim=1, keepdim=True)
+        max_out, _ = torch.max(x, dim=1, keepdim=True)
+        x = torch.cat([avg_out, max_out], dim=1)
+        x = self.conv1(x)
+        return self.sigmoid(x)
+
 
 
 #scce注意力模块
@@ -190,12 +233,12 @@ class scSE(nn.Module):  # noqa: N801
         return x
 
 
-
+##This is a concise version of the BsiNet whose modules are better packaged
 
 class BsiNet(nn.Module):
 
     output_downscaled = 1
-    module = UNetModule
+    module = NetModule
 
     def __init__(
         self,
@@ -270,8 +313,84 @@ class BsiNet(nn.Module):
 
 
 
+##This is a clearer BsiNet which shows a clearer building process
 
+class BsiNet_2(nn.Module):
+    """
+    Vanilla UNet.
 
+    Implementation from https://github.com/lopuhin/mapillary-vistas-2017/blob/master/unet_models.py
+    """
+    def __init__(
+            self,
+            input_channels: int = 3,
+            filters_base: int = 32,
+            num_classes=1,
+            add_output=True,
+    ):
+        super().__init__()
+        self.num_classes = num_classes
+        self.add_output = add_output
+        self.conv1 = NetModule(input_channels, 32)
+        self.conv2 = NetModule(32, 64)
+        self.conv3 = NetModule(64, 128)
+        self.conv4 = NetModule(128, 256)
+        self.conv5 = NetModule(256, 512)
+
+        self.conv6 = NetModule(768, 256)
+        self.conv7 = NetModule(384, 128)
+        self.conv8 = NetModule(192, 64)
+        self.conv9 = NetModule(96, 32)
+
+        self.pool1 = nn.MaxPool2d(2, 2)
+        self.pool2 = nn.MaxPool2d(4, 4)
+        self.upsample1 = nn.Upsample(scale_factor=2)
+        self.upsample2 = nn.Upsample(scale_factor=4)
+        self.sge = SpatialGroupEnhance(32)
+        if add_output:
+            self.conv_final1 = nn.Conv2d(filters_base, num_classes, 1)
+            self.conv_final2 = nn.Conv2d(filters_base, num_classes, 1)
+            self.conv_final3 = nn.Conv2d(filters_base, 1, 1)
+
+    def forward(self, x):
+        x1 = self.conv1(x)
+
+        x2 = self.conv2(x1)
+        x2 = self.pool1(x2)
+
+        x3 = self.conv3(x2)
+        x3 = self.pool1(x3)
+
+        x4 = self.conv4(x3)
+        x4 = self.pool1(x4)
+
+        x5 = self.conv5(x4)
+        x5 = self.pool2(x5)
+
+        x_6 = self.upsample2(x5)
+        x6 = self.conv6(torch.cat([x_6, x4], 1))
+        x6 = self.upsample1(x6)
+
+        x7 = self.conv7(torch.cat([x6, x3], 1))
+        x7 = self.upsample1(x7)
+
+        x8 = self.conv8(torch.cat([x7, x2], 1))
+        x8 = self.upsample1(x8)
+
+        x9 = self.conv9(torch.cat([x8, x1], 1))
+        x_out = self.sge(x9)
+
+        if self.add_output:
+
+            x_out1 = self.conv_final1(x_out)
+            x_out2 = self.conv_final2(x_out)
+            x_out3 = self.conv_final3(x_out)
+            if self.num_classes > 1:
+                x_out1 = F.log_softmax(x_out1, dim=1)
+                x_out2 = F.log_softmax(x_out2, dim=1)
+            x_out3 = torch.sigmoid(x_out3)
+
+        return [x_out1, x_out2, x_out3]
 
 
 

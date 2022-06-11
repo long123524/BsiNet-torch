@@ -24,8 +24,8 @@ if __name__ == "__main__":
     args.model_file = './bsi/100.pt'
     args.save_path = './save'
     args.model_type = 'bsinet'
-    args.distance_type = 'dist_contour'    #######修改
-    val_path = './test'        #读取原始图
+    args.distance_type = 'dist_contour'
+    val_path = './test'
 
 
     val_path = os.path.join(args.val_path, "*.tif")
@@ -55,9 +55,17 @@ if __name__ == "__main__":
         inputs = inputs.to(device)
         outputs1, outputs2, outputs3 = model(inputs)
 
+        ## TTA enhance
+        # outputs4, outputs5, outputs6 = model(torch.flip(inputs, [-1]))
+        # predict_2 = torch.flip(outputs4, [-1])
+        # outputs7, outputs8, outputs9 = model(torch.flip(inputs, [-2]))
+        # predict_3 = torch.flip(outputs7, [-2])
+        # outputs10, outputs11, outputs12 = model(torch.flip(inputs, [-1, -2]))
+        # predict_4 = torch.flip(outputs10, [-1, -2])
+        # predict_list = outputs1 + predict_2 + predict_3 + predict_4
+        # pred1 = predict_list/4.0
+
         outputs1 = outputs1.detach().cpu().numpy().squeeze()
-        outputs2 = outputs2.detach().cpu().numpy().squeeze()
-        outputs3 = outputs3.detach().cpu().numpy().squeeze()
 
         res = np.zeros((256, 256))
         indices = np.argmax(outputs1, axis=0)
@@ -65,6 +73,6 @@ if __name__ == "__main__":
         res[indices == 0] = 0
 
         output_path = os.path.join(
-            save_path, "mask_" + os.path.basename(img_file_name[0])
+            save_path, os.path.basename(img_file_name[0])
         )
         cv2.imwrite(output_path, res)
