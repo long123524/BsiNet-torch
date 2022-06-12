@@ -86,11 +86,11 @@ Will coming soon
 ```
 python test.py --model_file ./bsi/100.pt --save_path ./save --model_type 'bsinet' --distance_type 'dist_contour' --val_path ./test_image
 ```
-We will release all code if our paper is accept. 
-If you have any questions, you can contact us:hnzzyxlj@163.com.
+
+If you have any questions, you can contact us: Jiang long, hnzzyxlj@163.com and Mengmeng Li, mli@fzu.edu.cn.
 
 ## GF dataset
-Shandong GF2 image and vector:https://pan.baidu.com/s/1PZsflin5kKRTExxenSMQmQ, password：cj46
+A GF2 image (1m) is provided for scientific use: https://pan.baidu.com/s/1isg9jD9AlE9EeTqa3Fqrrg, password：bzfd
 
 ### Acknowledgements:
 
@@ -98,5 +98,5 @@ This code-base uses certain code-blocks and helper functions from Psi-Net
 
 ### Citation:
 ```
-
+Jiang Long, Mengmeng Li*, Xiaoqin Wang, Alfred Stein. Delineation of agricultural fields using multi-task BsiNet from high-resolution satellite images, International Journal of Applied Earth Observation and Geoinformation, 2022 (Revision).
 ```
