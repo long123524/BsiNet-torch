@@ -316,11 +316,6 @@ class BsiNet(nn.Module):
 ##This is a clearer BsiNet which shows a clearer building process
 
 class BsiNet_2(nn.Module):
-    """
-    Vanilla UNet.
-
-    Implementation from https://github.com/lopuhin/mapillary-vistas-2017/blob/master/unet_models.py
-    """
     def __init__(
             self,
             input_channels: int = 3,

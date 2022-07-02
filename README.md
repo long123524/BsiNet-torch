@@ -28,7 +28,7 @@ The code is stable while using Python 3.7.0, CUDA >=11.0
 - Clone this repository:
 ```bash
 git clone https://github.com/long123524/BsiNet-torch
-cd BsiNet-pytorch
+cd BsiNet-torch
 ```
 
 To install all the dependencies using conda or pip:
@@ -80,11 +80,11 @@ For test and validation datasets, the same structure as the above.
 
 1. Train the model.
 ```
-Will coming soon
+python train.py --train_path ./fields/image --save_path ./model --model_type 'bsinet' --distance_type 'dist_contour' 
 ```
 2. Evaluate.
 ```
-python test.py --model_file ./bsi/100.pt --save_path ./save --model_type 'bsinet' --distance_type 'dist_contour' --val_path ./test_image
+python test.py --model_file ./model/150.pt --save_path ./save --model_type 'bsinet' --distance_type 'dist_contour' --val_path ./test_image
 ```
 
 If you have any questions, you can contact us: Jiang long, hnzzyxlj@163.com and Mengmeng Li, mli@fzu.edu.cn.
@@ -98,5 +98,5 @@ This code-base uses certain code-blocks and helper functions from Psi-Net
 
 ### Citation:
 ```
-Jiang Long, Mengmeng Li*, Xiaoqin Wang, Alfred Stein. Delineation of agricultural fields using multi-task BsiNet from high-resolution satellite images, International Journal of Applied Earth Observation and Geoinformation, 2022 (Revision).
+Long J, Li M, Wang X, et al. Delineation of agricultural fields using multi-task BsiNet from high-resolution satellite images[J]. International Journal of Applied Earth Observation and Geoinformation, 2022, 112: 102871.
 ```

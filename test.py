@@ -9,6 +9,7 @@ import numpy as np
 import cv2
 from utils import create_validation_arg_parser
 
+
 def build_model(model_type):
 
     if model_type == "bsinet":
@@ -21,14 +22,14 @@ if __name__ == "__main__":
 
     args = create_validation_arg_parser().parse_args()
 
-    args.model_file = './bsi/100.pt'
+    args.model_file = './bsi/150.pt'
     args.save_path = './save'
     args.model_type = 'bsinet'
     args.distance_type = 'dist_contour'
-    val_path = './test'
+    args.test_path = './test'
 
 
-    val_path = os.path.join(args.val_path, "*.tif")
+    test_path = os.path.join(args.test_path, "*.tif")
     model_file = args.model_file
     save_path = args.save_path
     model_type = args.model_type
@@ -37,8 +38,8 @@ if __name__ == "__main__":
     CUDA_SELECT = "cuda:{}".format(cuda_no)
     device = torch.device(CUDA_SELECT if torch.cuda.is_available() else "cpu")
 
-    val_file_names = glob.glob(val_path)
-    valLoader = DataLoader(DatasetImageMaskContourDist(val_file_names, args.distance_type))
+    test_file_names = glob.glob(test_path)
+    valLoader = DataLoader(DatasetImageMaskContourDist(test_file_names, args.distance_type))
 
     if not os.path.exists(save_path):
         os.mkdir(save_path)
@@ -55,7 +56,7 @@ if __name__ == "__main__":
         inputs = inputs.to(device)
         outputs1, outputs2, outputs3 = model(inputs)
 
-        ## TTA enhance
+        ## TTA
         # outputs4, outputs5, outputs6 = model(torch.flip(inputs, [-1]))
         # predict_2 = torch.flip(outputs4, [-1])
         # outputs7, outputs8, outputs9 = model(torch.flip(inputs, [-2]))

@@ -52,7 +52,7 @@ def visualize(device, epoch, model, data_loader, writer, val_batch_size, train=T
 
             if train == "True":
                 save_image(targets.float(), "Target_train",val_batch_size)
-                save_image(output_final, "Prediction_train",val_batch_size)   #899原先是val_batch_size
+                save_image(output_final, "Prediction_train",val_batch_size)
             else:
                 save_image(targets.float(), "Target", val_batch_size)
                 save_image(output_final, "Prediction", val_batch_size)
@@ -75,7 +75,7 @@ def create_train_arg_parser():
         "--distance_type",
         type=str,
         default="dist_contour",
-        help="select distance transform type - dist_mask,dist_contour,dist_signed",
+        help="select distance transform type - dist_mask,dist_contour,dist_contour_tif",
     )
     parser.add_argument("--batch_size", type=int, default=4, help="train batch size")
     parser.add_argument(
@@ -105,7 +105,7 @@ def create_validation_arg_parser():
         type=str,
         help="select model type: bsinet",
     )
-    parser.add_argument("--val_path", type=str, help="path to img tif files")
+    parser.add_argument("--test_path", type=str, help="path to img tif files")
     parser.add_argument("--model_file", type=str, help="model_file")
     parser.add_argument("--save_path", type=str, help="results save path.")
     parser.add_argument("--cuda_no", type=int, default=0, help="cuda number")
