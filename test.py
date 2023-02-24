@@ -2,13 +2,12 @@ import torch
 import os
 from torch.utils.data import DataLoader
 from dataset import DatasetImageMaskContourDist
-import glob
 from models import BsiNet
 from tqdm import tqdm
 import numpy as np
 import cv2
 from utils import create_validation_arg_parser
-
+from torch import nn
 
 def build_model(model_type):
 
@@ -29,7 +28,7 @@ if __name__ == "__main__":
     args.test_path = './test'
 
 
-    test_path = os.path.join(args.test_path, "*.tif")
+    test_path = args.test_path + '/' + 'image'
     model_file = args.model_file
     save_path = args.save_path
     model_type = args.model_type
@@ -38,13 +37,16 @@ if __name__ == "__main__":
     CUDA_SELECT = "cuda:{}".format(cuda_no)
     device = torch.device(CUDA_SELECT if torch.cuda.is_available() else "cpu")
 
-    test_file_names = glob.glob(test_path)
-    valLoader = DataLoader(DatasetImageMaskContourDist(test_file_names, args.distance_type))
+    img_name = []
+    for img_file in os.listdir(test_path):
+        img_name.append(img_file[:-4])
+    valLoader = DataLoader(DatasetImageMaskContourDist(test_path, img_name,args.distance_type))
 
     if not os.path.exists(save_path):
         os.mkdir(save_path)
 
     model = build_model(model_type)
+    model = nn.DataParallel(model)
     model = model.to(device)
     model.load_state_dict(torch.load(model_file))
     model.eval()
@@ -72,8 +74,9 @@ if __name__ == "__main__":
         indices = np.argmax(outputs1, axis=0)
         res[indices == 1] = 255
         res[indices == 0] = 0
-
+        res = np.array(res, dtype='uint8')  # 转变为8字节型
         output_path = os.path.join(
-            save_path, os.path.basename(img_file_name[0])
+            save_path, img_file_name[0]+'.tif'
         )
         cv2.imwrite(output_path, res)
+
