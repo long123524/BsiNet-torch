@@ -98,5 +98,5 @@ This code-base uses certain code-blocks and helper functions from Psi-Net
 
 ### Citation:
 ```
-Long J, Li M, Wang X, et al. Delineation of agricultural fields using multi-task BsiNet from high-resolution satellite images[J]. International Journal of Applied Earth Observation and Geoinformation, 2022, 112: 102871.
+Long J, Li M, Wang X, et al. Delineation of agricultural fields using multi-task BsiNet from high-resolution satellite images. International Journal of Applied Earth Observation and Geoinformation, 2022, 112: 102871.
 ```
