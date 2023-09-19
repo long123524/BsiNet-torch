@@ -42,7 +42,7 @@ tqdm
 ```
 
 ## Preprocessing
-Contour and Distance Maps are pre-computed and can be obtained from binary mask and contour. You can use matlab or python codes to obtain them.
+Using the code preprocess.py to obtain contour and distance maps.
 
 ## Data Format
 
