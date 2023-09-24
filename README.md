@@ -92,6 +92,10 @@ If you have any questions, you can contact us: Jiang long, hnzzyxlj@163.com and 
 ## GF dataset
 A GF2 image (1m) is provided for scientific use: https://pan.baidu.com/s/1isg9jD9AlE9EeTqa3Fqrrg, password：bzfd
 
+## A pretrained weight
+A pretrained weight on a Xinjiang GF-2 image is provided: https://pan.baidu.com/s/1PJBcr4jJR_znqhs-tdEpug 
+password：f2pg
+
 ### Acknowledgements:
 
 This code-base uses certain code-blocks and helper functions from Psi-Net
