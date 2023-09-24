@@ -1,6 +1,6 @@
 # BsiNet
 
-Official Pytorch Code base for [Delineation of agricultural fields using multi-task BsiNet from high-resolution satellite images]
+Official Pytorch Code base for "Delineation of agricultural fields using multi-task BsiNet from high-resolution satellite images"
 
 [Project](https://github.com/long123524/BsiNet-torch)
 
