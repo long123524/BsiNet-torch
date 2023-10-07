@@ -95,6 +95,7 @@ A GF2 image (1m) is provided for scientific use: https://pan.baidu.com/s/1isg9jD
 ## A pretrained weight
 A pretrained weight on a Xinjiang GF-2 image is provided: https://pan.baidu.com/s/1PJBcr4jJR_znqhs-tdEpug 
 password：f2pg
+Google drive: https://drive.google.com/file/d/12WOseQqBNQQZGe5xSGgEvUZmOd5kKd5Z/view?usp=sharing
 
 ### Acknowledgements:
 
