@@ -58,7 +58,11 @@ for imgPath in os.listdir(maskRoot):
     distOutPath = os.path.join(distRoot, imgPath)
     im_proj, im_geotrans, im_width, im_height, im_data = read_img(input_path)
     result = cv2.distanceTransform(src=im_data, distanceType=cv2.DIST_L2, maskSize=3)
-    result = result.astype(np.uint8)
+    min_value = np.min(result)
+    max_value = np.max(result)
+    scaled_image = ((result - min_value) / (max_value - min_value)) * 255
+    result = scaled_image.astype(np.uint8)
+    # result = result.astype(np.uint8)
     write_img(distOutPath, im_proj, im_geotrans, result)
     ##distance map(you can also use bwdist function in Matlab to obtain distance map)
     ###boundary(you can also use bwperim function in Matlab to obtain boundary map)
