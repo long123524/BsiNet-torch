@@ -67,7 +67,9 @@ for imgPath in os.listdir(maskRoot):
     ##distance map(you can also use bwdist function in Matlab to obtain distance map)
     ###boundary(you can also use bwperim function in Matlab to obtain boundary map)
     boundary = cv2.Canny(im_data, 100, 200)
-    # boundary = sn.binary_dilation(boundary)
+    ## dilation
+    # kernel = np.ones((3, 3), np.uint8)
+    # boundary = cv2.dilate(boundary, kernel, iterations=1)
     write_img(boundaryOutPath, im_proj, im_geotrans, boundary)
 
 
