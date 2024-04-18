@@ -106,6 +106,24 @@ This code-base uses certain code-blocks and helper functions from Psi-Net
 ### Citation:
 If you find this work useful or interesting, please consider citing the following references.
 ```
-1. Long J, Li M, Wang X, et al. Delineation of agricultural fields using multi-task BsiNet from high-resolution satellite images. International Journal of Applied Earth Observation and Geoinformation, 2022, 112: 102871.
-2. Li M., Long J., Stein A., et al. Using a semantic edge-aware multi-task neural network to delineate agricultural parcels from remote sensing images. ISPRS Journal of Photogrammetry and Remote Sensing, 2023, 200: 24-40.
+Citation 1：
+{Authors: Long Jiang （龙江）, Li Mengmeng* （李蒙蒙）, Wang Xiaoqin （汪小钦）, et al;
+Institute: The Academy of Digital China (Fujian), Fuzhou University,
+Article Title: Delineation of agricultural fields using multi-task BsiNet from high-resolution satellite images,
+Publication: International Journal of Applied Earth Observation and Geoinformation,
+Year: 2022,
+Volume:112
+Page: 102871,
+DOI: 10.1016/j.jag.2022.102871
+}
+Citation 2：
+{Authors: Li Mengmeng* （李蒙蒙）, Long Jiang （龙江）, et al;
+Institute: The Academy of Digital China (Fujian), Fuzhou University,
+Article Title: Using a semantic edge-aware multi-task neural network to delineate agricultural parcels from remote sensing images,
+Publication: ISPRS Journal of Photogrammetry and Remote Sensing,
+Year: 2023,
+Volume:200
+Page: 24-40,
+DOI: 10.1016/j.isprsjprs.2023.04.019
+}
 ```
