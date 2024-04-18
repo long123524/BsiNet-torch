@@ -92,6 +92,7 @@ If you have any questions, you can contact us: Jiang long, hnzzyxlj@163.com and 
 ## GF dataset
 A GF2 image (1m) is provided for scientific use: https://pan.baidu.com/s/1isg9jD9AlE9EeTqa3Fqrrg, password：bzfd
 Google drive:https://drive.google.com/file/d/1JZtRSxX5PaT3JCzvCLq2Jrt0CBXqZj7c/view?usp=drive_link
+A corresponding partial field label is provided for scientific study: https://drive.google.com/file/d/19OrVPkb0MkoaUvaax_9uvnJgSr_dcSSW/view?usp=sharing
 
 ## A pretrained weight
 A pretrained weight on a Xinjiang GF-2 image is provided: https://pan.baidu.com/s/1PJBcr4jJR_znqhs-tdEpug 
@@ -103,6 +104,8 @@ Google drive: https://drive.google.com/file/d/12WOseQqBNQQZGe5xSGgEvUZmOd5kKd5Z/
 This code-base uses certain code-blocks and helper functions from Psi-Net
 
 ### Citation:
+If you find this work useful or interesting, please consider citing the following references.
 ```
-Long J, Li M, Wang X, et al. Delineation of agricultural fields using multi-task BsiNet from high-resolution satellite images. International Journal of Applied Earth Observation and Geoinformation, 2022, 112: 102871.
+1. Long J, Li M, Wang X, et al. Delineation of agricultural fields using multi-task BsiNet from high-resolution satellite images. International Journal of Applied Earth Observation and Geoinformation, 2022, 112: 102871.
+2. Li M., Long J., Stein A., et al. Using a semantic edge-aware multi-task neural network to delineate agricultural parcels from remote sensing images. ISPRS Journal of Photogrammetry and Remote Sensing, 2023, 200: 24-40.
 ```
