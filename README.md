@@ -95,9 +95,8 @@ Google drive:https://drive.google.com/file/d/1JZtRSxX5PaT3JCzvCLq2Jrt0CBXqZj7c/v
 A corresponding partial field label is provided for scientific study: https://drive.google.com/file/d/19OrVPkb0MkoaUvaax_9uvnJgSr_dcSSW/view?usp=sharing
 
 ## A pretrained weight
-A pretrained weight on a Xinjiang GF-2 image is provided: https://pan.baidu.com/s/1PJBcr4jJR_znqhs-tdEpug 
-password：f2pg
-Google drive: https://drive.google.com/file/d/12WOseQqBNQQZGe5xSGgEvUZmOd5kKd5Z/view?usp=sharing
+A pretrained weight on a Xinjiang GF-2 image is provided: https://pan.baidu.com/s/1asAMj4_ZrIQeJiewP2LpqA password：rz8k 
+Google drive: https://drive.google.com/drive/folders/121T8FjiyEsIbfyLUbrBXYCg75PIzCzRX?usp=sharing
 
 ### Acknowledgements:
 
