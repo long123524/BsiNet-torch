@@ -136,5 +136,5 @@ Page: 1-5,
 DOI: 10.1109/LGRS.2024.3454263
 }
 ```
-### A large cropland dataset from VHR images:
+### A large cropland dataset collected from VHR images:
 Will be accessible at https://github.com/NanNanmei/HBGNet, more details can be found at a recent collaborative paper "A large-scale VHR parcel dataset and a novel hierarchical semantic boundary-guided network for agricultural parcel delineation (https://www.sciencedirect.com/science/article/pii/S0924271625000395)"
