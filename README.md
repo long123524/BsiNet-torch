@@ -125,4 +125,16 @@ Volume:200
 Page: 24-40,
 DOI: 10.1016/j.isprsjprs.2023.04.019
 }
+Citation 3：
+{Authors: Long jiang (龙江), Zhao hang (赵航), Li Mengmeng* (李蒙蒙), et al;
+Institute: The Academy of Digital China (Fujian), Fuzhou University; Chinese Academy of Sciences
+Article Title: Integrating Segment Anything Model derived boundary prior and high-level semantics for cropland extraction from high-resolution remote sensing images,
+Publication: IEEE Geoscience and Remote Sensing Letters,
+Year: 2024,
+Volume:21,
+Page: 1-5,
+DOI: 10.1109/LGRS.2024.3454263
+}
 ```
+### A large cropland dataset from VHR images:
+Will be accessible at https://github.com/NanNanmei/HBGNet, more details can be found at a recent collaborative paper "A large-scale VHR parcel dataset and a novel hierarchical semantic boundary-guided network for agricultural parcel delineation (https://www.sciencedirect.com/science/article/pii/S0924271625000395)"
